@@ -4,15 +4,11 @@
 
 #include "thrust/sort.h"
 
-
 namespace ompx {
-    namespace device {
+namespace device {
 
-
-
-struct type_size16_t
-{
-    uint8_t tmp_[16];
+struct type_size16_t {
+  uint8_t tmp_[16];
 };
 
 void ompx_sort_impl(void *B, void *E, int size, ompx_sort_cmp_ty F) {
@@ -38,11 +34,10 @@ void ompx_sort_impl(void *B, void *E, int size, ompx_sort_cmp_ty F) {
                  [=](type_size16_t L, type_size16_t R) { return F(&L, &R); });
     break;
   default:
-    //printf("Error, size %i not handled\n", size);
-    throw std::runtime_error("ompx_sort data size not handled: " + std::to_string(size));
-
+    // printf("Error, size %i not handled\n", size);
+    throw std::runtime_error("ompx_sort data size not handled: " +
+                             std::to_string(size));
   };
 }
-}
-}
-
+} // namespace device
+} // namespace ompx
