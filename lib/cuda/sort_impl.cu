@@ -20,7 +20,7 @@ struct type_size16_t {
   uint8_t tmp_[16];
 };
 
-void ompx_sort_impl(void *B, void *E, int size, ompx_sort_cmp_ty F) {
+void ompx_sort_impl(void *B, void *E, uint32_t size, ompx_sort_cmp_ty F) {
   switch (size) {
   case 1:
     thrust::sort(thrust::device, (uint8_t *)B, (uint8_t *)E,

@@ -18,14 +18,14 @@ template <typename T> bool __cmp(void *a, void *b) {
 }
 
 namespace host {
-void ompx_sort_impl(void *B, void *E, int size, ompx_sort_cmp_ty F);
+void ompx_sort_impl(void *B, void *E, uint32_t size, ompx_sort_cmp_ty F);
 
 template <typename T>
-void ompx_sort(T *B, int NumElements, ompx_sort_cmp_ty Cmp) {
+void ompx_sort(T *B, uint32_t NumElements, ompx_sort_cmp_ty Cmp) {
   ompx_sort_impl((void *)B, (void *)(B + NumElements), sizeof(T), Cmp);
 }
 
-template <typename T> void ompx_sort(T *B, int NumElements) {
+template <typename T> void ompx_sort(T *B, uint32_t NumElements) {
   ompx_sort_impl((void *)B, (void *)(B + NumElements), sizeof(T), __cmp<T>);
 }
 
@@ -39,7 +39,7 @@ template <typename T> void ompx_sort(T *B, T *E, ompx_sort_cmp_ty Cmp) {
 
 namespace device {
 
-void ompx_sort_impl(void *B, void *E, int size, ompx_sort_cmp_ty F);
+void ompx_sort_impl(void *B, void *E, uint32_t size, ompx_sort_cmp_ty F);
 template <typename T>
 void ompx_sort(T *B, int NumElements, ompx_sort_cmp_ty Cmp) {
 #pragma omp target data use_device_ptr(B)
@@ -62,7 +62,7 @@ template <typename T> bool __cmp(void *a, void *b) {
 }
 #pragma omp end declare target
 
-template <typename T> void ompx_sort(T *B, int NumElements) {
+template <typename T> void ompx_sort(T *B, uint32_t NumElements) {
   ompx_sort_cmp_ty dev_fptr = nullptr;
 
 #pragma omp target map(from : dev_fptr)
