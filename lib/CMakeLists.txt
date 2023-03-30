@@ -13,7 +13,7 @@ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -foffload-lto -fgpu-rdc --cuda-gpu-arc
 find_package(Thrust REQUIRED CONFIG)
 thrust_create_target(Thrust)
 
-add_library(ompx cuda/sort_impl.cu)
+add_library(ompx cuda/sort_impl.cu host/sort_impl.cu)
 target_include_directories(ompx PUBLIC "${PROJECT_SOURCE_DIR}/include")
 
 target_link_libraries(ompx Thrust)
