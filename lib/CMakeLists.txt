@@ -1,3 +1,9 @@
 
 
-add_subdirectory(cuda)
+if (BUILD_CUDA)
+  add_subdirectory(cuda)
+endif()
+
+if (BUILD_ROCM)
+  add_subdirectory(rocm)
+endif()

@@ -4,6 +4,9 @@ project(libompx VERSION "0.1" DESCRIPTION "LIBOMPX")
 
 enable_testing()
 
+set(BUILD_CUDA ON)
+set(BUILD_ROCM OFF)
+
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CMAKE_CXX_STANDARD 17)
