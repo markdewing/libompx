@@ -48,5 +48,80 @@ void ompx_sort_impl(void *B, void *E, uint32_t size, ompx_sort_cmp_ty F) {
                              std::to_string(size));
   };
 }
+
+void ompx_sort_by_key_impl(void *B, void *E, uint32_t sizeK, void *V,
+                               uint32_t sizeV, ompx_sort_cmp_ty F) {
+  switch (sizeK) {
+  case 1:
+    switch (sizeV) {
+    case 1:
+      thrust::sort_by_key(thrust::device, (uint8_t *)B, (uint8_t *)E,
+                          (uint8_t *)V,
+                          [=](uint8_t L, uint8_t R) { return F(&L, &R); });
+      break;
+    case 4:
+      thrust::sort_by_key(thrust::device, (uint8_t *)B, (uint8_t *)E,
+                          (uint32_t *)V,
+                          [=](uint8_t L, uint8_t R) { return F(&L, &R); });
+      break;
+    case 8:
+      thrust::sort_by_key(thrust::device, (uint8_t *)B, (uint8_t *)E,
+                          (uint64_t *)V,
+                          [=](uint8_t L, uint8_t R) { return F(&L, &R); });
+      break;
+    default:
+      throw std::runtime_error("ompx_sort_by_key value data size not handled: " +
+                             std::to_string(sizeV));
+    }
+  case 4:
+    switch (sizeV) {
+    case 1:
+      thrust::sort_by_key(thrust::device, (uint32_t *)B, (uint32_t *)E,
+                          (uint8_t *)V,
+                          [=](uint32_t L, uint32_t R) { return F(&L, &R); });
+      break;
+    case 4:
+      thrust::sort_by_key(thrust::device, (uint32_t *)B, (uint32_t *)E,
+                          (uint32_t *)V,
+                          [=](uint32_t L, uint32_t R) { return F(&L, &R); });
+      break;
+    case 8:
+      thrust::sort_by_key(thrust::device, (uint32_t *)B, (uint32_t *)E,
+                          (uint64_t *)V,
+                          [=](uint32_t L, uint32_t R) { return F(&L, &R); });
+      break;
+    default:
+      throw std::runtime_error("ompx_sort_by_key value data size not handled: " +
+                             std::to_string(sizeV));
+    }
+    break;
+  case 8:
+    switch (sizeV) {
+    case 1:
+      thrust::sort_by_key(thrust::device, (uint64_t *)B, (uint64_t *)E,
+                          (uint8_t *)V,
+                          [=](uint64_t L, uint64_t R) { return F(&L, &R); });
+      break;
+    case 4:
+      thrust::sort_by_key(thrust::device, (uint64_t *)B, (uint64_t *)E,
+                          (uint32_t *)V,
+                          [=](uint64_t L, uint64_t R) { return F(&L, &R); });
+      break;
+    case 8:
+      thrust::sort_by_key(thrust::device, (uint64_t *)B, (uint64_t *)E,
+                          (uint64_t *)V,
+                          [=](uint64_t L, uint64_t R) { return F(&L, &R); });
+      break;
+    default:
+      throw std::runtime_error("ompx_sort_by_key value data size not handled: " +
+                             std::to_string(sizeV));
+    }
+    break;
+  default:
+    throw std::runtime_error("ompx_sort_by_key key data size not handled: " +
+                             std::to_string(sizeK));
+  };
+}
+
 } // namespace device
 } // namespace ompx
