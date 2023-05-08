@@ -4,7 +4,7 @@ project(libompx VERSION "0.2" DESCRIPTION "LIBOMPX")
 
 enable_testing()
 
-option(BUILD_CUDA "Enable CUDA backend" ON)
+option(BUILD_CUDA "Enable CUDA backend" OFF)
 option(BUILD_ROCM "Enable ROCm backend" OFF)
 option(BUILD_ONEAPI "Enable OneAPI backend" OFF)
 
