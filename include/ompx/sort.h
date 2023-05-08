@@ -1,6 +1,8 @@
 #ifndef OMPX_SORT_H
 #define OMPX_SORT_H
 
+#include <stddef.h>
+
 namespace ompx {
 namespace host {
 
@@ -15,11 +17,13 @@ void sort(RandomAccessIterator first, RandomAccessIterator last) {
 
 namespace device {
 template <typename RandomAccessIterator>
-void ompx_sort(RandomAccessIterator first, RandomAccessIterator last);
+void ompx_sort(RandomAccessIterator first, size_t NumElements);
 
 template <typename RandomAccessIterator>
 void sort(RandomAccessIterator first, RandomAccessIterator last) {
-  ompx::device::ompx_sort(first, last);
+  size_t NumElements = last - first;
+#pragma omp target data use_device_ptr(first)
+  ompx::device::ompx_sort(first, NumElements);
 }
 } // namespace device
 } // namespace ompx

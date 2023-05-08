@@ -17,12 +17,12 @@ namespace device {
 
 
 template <typename T>
-void ompx_sort(T B, T E)
+void ompx_sort(T B, size_t NumElements)
 {
-    thrust::sort(thrust::device, B, E);
+    thrust::sort(thrust::device, B, B+NumElements);
 }
 
-template void ompx_sort(int*, int*);
+template void ompx_sort(int*, size_t);
 
 } // namespace device
 } // namespace ompx
