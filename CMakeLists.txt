@@ -4,9 +4,9 @@ project(libompx VERSION "0.2" DESCRIPTION "LIBOMPX")
 
 enable_testing()
 
-set(BUILD_CUDA OFF)
-set(BUILD_ROCM OFF)
-set(BUILD_ONEAPI ON)
+option(BUILD_CUDA "Enable CUDA backend" ON)
+option(BUILD_ROCM "Enable ROCm backend" OFF)
+option(BUILD_ONEAPI "Enable OneAPI backend" OFF)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
