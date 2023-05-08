@@ -7,7 +7,7 @@ set(CMAKE_CUDA_COMPILER clang++)
 find_package(CUDAToolkit)
 enable_language(CUDA)
 
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -foffload-lto -fgpu-rdc --cuda-gpu-arch=native --offload-new-driver")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -fgpu-rdc --cuda-gpu-arch=native --offload-new-driver -Xclang -fcuda-allow-variadic-functions")
 
 
 find_package(Thrust REQUIRED CONFIG)
