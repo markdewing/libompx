@@ -22,7 +22,7 @@ void ompx_sort(T B, size_t NumElements)
     thrust::sort(thrust::device, B, B+NumElements);
 }
 
-template void ompx_sort(int*, size_t);
+#include "../inst/sort_inst.h"
 
 } // namespace device
 } // namespace ompx
