@@ -9,7 +9,7 @@ if (BUILD_ROCM)
 endif()
 
 if (BUILD_ONEAPI)
-  set(OFFLOAD_COMPILE_OPTIONS -fiopenmp -fsycl)
+  set(OFFLOAD_COMPILE_OPTIONS -fiopenmp -fsycl -fopenmp-targets=spir64)
 endif()
 
 
