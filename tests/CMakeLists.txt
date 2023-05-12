@@ -36,3 +36,15 @@ foreach(test IN LISTS tests)
   add_test(NAME ${test} COMMAND ${test})
 endforeach()
 
+if (BUILD_HOST)
+  set(host_tests "test_host_sort")
+
+  foreach(test IN LISTS host_tests)
+    add_executable(${test} ${test}.cpp)
+    target_include_directories(${test} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+
+    target_link_libraries(${test} PRIVATE ompx_host)
+
+    add_test(NAME ${test} COMMAND ${test})
+  endforeach()
+endif()

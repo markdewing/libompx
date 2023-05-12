@@ -7,11 +7,12 @@ namespace ompx {
 namespace host {
 
 template <typename RandomAccessIterator>
-void ompx_sort(RandomAccessIterator first, RandomAccessIterator last);
+void ompx_sort(RandomAccessIterator first, size_t NumElements);
 
 template <typename RandomAccessIterator>
 void sort(RandomAccessIterator first, RandomAccessIterator last) {
-  ompx::host::ompx_sort(first, last);
+  size_t NumElements = last - first;
+  ompx::host::ompx_sort(first, NumElements);
 }
 } // namespace host
 

@@ -7,6 +7,7 @@ enable_testing()
 option(BUILD_CUDA "Enable CUDA backend" OFF)
 option(BUILD_ROCM "Enable ROCm backend" OFF)
 option(BUILD_ONEAPI "Enable OneAPI backend" OFF)
+option(BUILD_HOST "Enable host CPU library" OFF)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
