@@ -13,7 +13,7 @@ if (BUILD_ONEAPI)
 endif()
 
 
-set(tests "test_sort")
+set(tests "test_sort;test_sort_cmp")
 
 foreach(test IN LISTS tests)
   add_executable(${test} ${test}.cpp)
@@ -37,7 +37,7 @@ foreach(test IN LISTS tests)
 endforeach()
 
 if (BUILD_HOST)
-  set(host_tests "test_host_sort")
+  set(host_tests "test_host_sort;test_host_sort_cmp")
 
   foreach(test IN LISTS host_tests)
     add_executable(${test} ${test}.cpp)

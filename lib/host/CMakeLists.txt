@@ -3,7 +3,7 @@
 # Build host backend
 #
 
-add_library(ompx_host sort_impl.cpp)
+add_library(ompx_host sort_impl.cpp sort_impl2.cpp)
 
 target_include_directories(ompx_host PUBLIC "${PROJECT_SOURCE_DIR}/include")
 
