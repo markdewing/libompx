@@ -17,7 +17,7 @@ namespace device {
 
 
 template <typename T>
-void ompx_sort(T B, size_t NumElements)
+void ompx_sort(T* B, size_t NumElements)
 {
     thrust::sort(thrust::device, B, B+NumElements);
 }

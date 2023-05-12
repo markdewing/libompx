@@ -7,7 +7,7 @@
 namespace ompx {
 namespace host {
 
-template <typename T> void ompx_sort(T B, size_t NumElements) {
+template <typename T> void ompx_sort(T* B, size_t NumElements) {
   std::sort(B, B + NumElements);
 }
 
