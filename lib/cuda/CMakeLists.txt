@@ -13,7 +13,7 @@ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -fgpu-rdc --cuda-gpu-arch=native --off
 find_package(Thrust REQUIRED CONFIG)
 thrust_create_target(Thrust)
 
-add_library(ompx sort_impl.cu)
+add_library(ompx sort_impl.cu sort_impl2.cu)
 target_include_directories(ompx PUBLIC "${PROJECT_SOURCE_DIR}/include")
 
 target_link_libraries(ompx Thrust)
