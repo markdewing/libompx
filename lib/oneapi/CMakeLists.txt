@@ -7,10 +7,11 @@
 
 
 
-add_library(ompx sort_impl.cpp sort_impl2.cpp)
+add_library(ompx sort_impl.cpp)
 target_include_directories(ompx PUBLIC "${PROJECT_SOURCE_DIR}/include")
+target_compile_definitions(ompx PUBLIC ONEAPI)
 
-set_target_properties(ompx PROPERTIES COMPILE_OPTIONS "-fsycl;-fiopenmp;-fopenmp-targets=spir64;-fsycl-enable-function-pointers")
+set_target_properties(ompx PROPERTIES COMPILE_OPTIONS "-fsycl;-fiopenmp;-fopenmp-targets=spir64")
 
 
 
