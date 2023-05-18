@@ -43,11 +43,8 @@ int main() {
 
 #pragma omp target enter data map(to : keys_begin[ : NumKeys])
   {
-      decltype(cmp) *dev_fptr;
-#pragma omp target map(from:dev_fptr)
-      dev_fptr = &cmp;
-
-      ompx::device::sort(keys_begin, keys_begin + NumKeys, dev_fptr);
+    Cmp cmp;
+    ompx::device::sort(keys_begin, keys_begin + NumKeys, cmp);
   }
 
 #pragma omp target exit data map(from : keys_begin[ : NumKeys])

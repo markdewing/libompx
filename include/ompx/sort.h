@@ -92,19 +92,30 @@ template <typename T> void sort(T *first, T *last) {
   }
 }
 
-template <typename T> void sort(T *first, T *last, ompx_sort_cmp_ty Cmp) {
+template <typename T, typename Cmp> bool cmp_wrapper(void *a, void *b) {
+  Cmp c;
+  return c(*(T *)a, *(T *)b);
+}
+
+template <typename T, typename Cmp> void sort(T *first, T *last, Cmp F) {
+
+  ompx_sort_cmp_ty dev_fptr;
+#pragma omp target map(from : dev_fptr)
+  { dev_fptr = &cmp_wrapper<T, Cmp>; }
+
   size_t NumElements = last - first;
   int dev = omp_get_default_device();
   int present = omp_target_is_present(first, dev);
   if (present) {
 #pragma omp target data use_device_ptr(first)
-    ompx::device::ompx_sort_cmp(first, NumElements, sizeof(T), Cmp);
+    ompx::device::ompx_sort_cmp(first, NumElements, sizeof(T), dev_fptr);
   } else {
 #pragma omp target data map(tofrom : first[ : NumElements])                    \
     use_device_ptr(first)
-    ompx::device::ompx_sort_cmp(first, NumElements, sizeof(T), Cmp);
+    ompx::device::ompx_sort_cmp(first, NumElements, sizeof(T), dev_fptr);
   }
 }
+
 #endif
 
 } // namespace device
