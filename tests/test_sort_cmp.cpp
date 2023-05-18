@@ -18,11 +18,6 @@ public:
     return a > b;
   }
 };
-
-bool cmp(void *a, void *b) {
-  Cmp c;
-  return c(*(DTYPE *)a, *(DTYPE *)b);
-}
 #pragma omp end declare target
 
 void init(DTYPE *keys) {
