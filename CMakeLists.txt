@@ -9,6 +9,8 @@ option(BUILD_ROCM "Enable ROCm backend" OFF)
 option(BUILD_ONEAPI "Enable OneAPI backend" OFF)
 option(BUILD_HOST "Enable host CPU library" OFF)
 
+option(USE_OFFLOAD_LTO  "Enable Offload Link Time Optimization (LTO)" OFF)
+
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CMAKE_CXX_STANDARD 17)

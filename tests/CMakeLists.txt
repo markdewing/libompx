@@ -8,6 +8,10 @@ if (BUILD_ROCM)
   set(OFFLOAD_COMPILE_OPTIONS ${OFFLOAD_COMPILE_OPTIONS} -fgpu-rdc)
 endif()
 
+if (USE_OFFLOAD_LTO)
+  set(OFFLOAD_COMPILE_OPTIONS ${OFFLOAD_COMPILE_OPTIONS} -foffload-lto)
+endif()
+
 if (BUILD_ONEAPI)
   set(OFFLOAD_COMPILE_OPTIONS -fiopenmp -fsycl -fopenmp-targets=spir64)
 endif()
