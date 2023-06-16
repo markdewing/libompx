@@ -8,7 +8,7 @@
 //     https://github.com/llvm/llvm-project/issues/57544
 #undef __noinline__
 
-#include "ompx/sort.h"
+#include "ompx/sort_types.h"
 
 #include "thrust/sort.h"
 

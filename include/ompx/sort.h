@@ -3,14 +3,13 @@
 
 #include <omp.h>
 #include <stddef.h>
+#include "sort_types.h"
 #ifdef ONEAPI
 #include <oneapi/dpl/algorithm>
 #include <oneapi/dpl/execution>
 #endif
 
 namespace ompx {
-
-typedef bool (*ompx_sort_cmp_ty)(void *, void *);
 
 //
 // Host library
