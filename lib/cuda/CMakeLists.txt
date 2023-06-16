@@ -16,7 +16,7 @@ endif()
 find_package(Thrust REQUIRED CONFIG)
 thrust_create_target(Thrust)
 
-add_library(ompx sort_impl.cu sort_impl2.cu)
+add_library(ompx sort_impl.cu sort_impl2.cu sort_by_key_impl.cu)
 target_include_directories(ompx PUBLIC "${PROJECT_SOURCE_DIR}/include")
 
 target_link_libraries(ompx Thrust)

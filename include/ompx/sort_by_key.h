@@ -47,6 +47,24 @@ void sort_by_key(T1 *key_begin, T1 *key_end, T2 *value_begin) {
     value_begin[i] = sh[i].value;
   }
 }
+
+#else
+
+template <typename T1, typename T2>
+void ompx_sort_by_key(T1 *B, size_t NumElements, T2 *V);
+
+template <typename T1, typename T2>
+void sort_by_key(T1 *B, size_t NumElements, T2 *V) {
+#pragma omp target data use_device_ptr(B, V)
+  ompx_sort_by_key(B, NumElements, V);
+  // ompx_sort_by_key_impl((void *)B, NumElements, sizeof(T1), (void *)V,
+  // sizeof(T2));
+}
+
+template <typename T1, typename T2> void sort_by_key(T1 *B, T1 *E, T2 *V) {
+  sort_by_key(B, E - B, V);
+}
+
 #endif
 
 } // namespace device
