@@ -17,7 +17,7 @@ if (BUILD_ONEAPI)
 endif()
 
 
-set(tests test_sort test_sort_cmp test_sort_by_key)
+set(tests test_sort test_sort_cmp test_sort_by_key test_inclusive_scan)
 
 foreach(test IN LISTS tests)
   add_executable(${test} ${test}.cpp)
