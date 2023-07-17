@@ -3,53 +3,46 @@
 
 #include "ompx/sort.h"
 
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators.hpp>
+
 #include <iostream>
 #include <stdlib.h>
 
-#define DTYPE int
-
-#define N 13
-
-class Cmp {
+template <typename T> class Cmp {
 public:
-  bool operator()(DTYPE a, DTYPE b) const {
+  bool operator()(T a, T b) const {
     // reverse it for fun
     return a > b;
   }
 };
 
-bool cmp(void *a, void *b) {
-  Cmp c;
-  return c(*(DTYPE *)a, *(DTYPE *)b);
+template <typename T> bool cmp(void *a, void *b) {
+  Cmp<T> c;
+  return c(*(T *)a, *(T *)b);
 }
 
-
-void init(DTYPE *keys) {
-  for (int i = 0; i < N; ++i) {
-    keys[i] = rand();
+template <typename T> void init(std::vector<T> &keys) {
+  for (int i = 0; i < keys.size(); ++i) {
+    keys[i] = (T)rand();
   }
 }
 
-int main() {
+TEMPLATE_TEST_CASE("sort_by_key", "[sort]", int, float, double) {
 
-  DTYPE keys[N];
-  DTYPE *keys_begin = &keys[0];
+  int N = GENERATE(0, 1, 2, 3, 4, 8, 13);
+  std::cout << "size = " << N << std::endl;
+  std::vector<TestType> keys(N);
+  TestType *keys_begin = keys.data();
 
-  int NumKeys = N; // sizeof(keys) / sizeof(keys[0]);
   int errors = 0;
 
   init(keys);
 
-  ompx::host::sort(keys_begin, keys_begin + NumKeys, cmp);
+  ompx::host::sort(keys_begin, keys_begin + N, cmp<TestType>);
 
-  for (int i = 1; i < NumKeys; i++) {
-    if (keys[i] > keys[i - 1])
-      errors++;
+  for (int i = 1; i < N; i++) {
+    REQUIRE(keys[i] <= keys[i - 1]);
   }
-
-  if (errors)
-    std::cout << "Test FAIL" << std::endl;
-  else
-    std::cout << "Test PASS" << std::endl;
-  return errors;
 }

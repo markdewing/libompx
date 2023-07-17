@@ -2,56 +2,55 @@
 // Test of wrapper around thrust::sort
 
 #include "ompx/sort.h"
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators.hpp>
 
 #include <iostream>
 #include <stdlib.h>
-
-#define DTYPE int
-
-#define N 13
+#include <vector>
 
 #pragma omp begin declare target
-class Cmp {
+template <typename T> class Cmp {
 public:
-  bool operator()(DTYPE a, DTYPE b) const {
+  bool operator()(T a, T b) const {
     // reverse it for fun
     return a > b;
   }
 };
 #pragma omp end declare target
 
-void init(DTYPE *keys) {
-  for (int i = 0; i < N; ++i) {
-    keys[i] = rand();
+template <typename T> void init(std::vector<T> &keys) {
+  for (int i = 0; i < keys.size(); ++i) {
+    keys[i] = (T)rand();
   }
 }
 
-int main() {
+TEMPLATE_TEST_CASE("sort_by_key", "[sort]", int, float, double) {
 
-  DTYPE keys[N];
-  DTYPE *keys_begin = &keys[0];
+  size_t N = GENERATE(0, 1, 2, 3, 4, 8, 13);
+  std::vector<TestType> keys(N);
+  TestType *keys_begin = keys.data();
 
-  int NumKeys = N; // sizeof(keys) / sizeof(keys[0]);
   int errors = 0;
 
   init(keys);
 
-#pragma omp target enter data map(to : keys_begin[ : NumKeys])
+#pragma omp target enter data map(to : keys_begin[ : N])
   {
-    Cmp cmp;
-    ompx::device::sort(keys_begin, keys_begin + NumKeys, cmp);
+    Cmp<TestType> cmp;
+    ompx::device::sort(keys_begin, keys_begin + N, cmp);
   }
 
-#pragma omp target exit data map(from : keys_begin[ : NumKeys])
+#pragma omp target exit data map(from : keys_begin[ : N])
 
-  for (int i = 1; i < NumKeys; i++) {
-    if (keys[i] > keys[i - 1])
-      errors++;
+  if (false) {
+    for (int i = 0; i < N; i++) {
+      std::cout << i << " " << keys[i] << std::endl;
+    }
   }
 
-  if (errors)
-    std::cout << "Test FAIL" << std::endl;
-  else
-    std::cout << "Test PASS" << std::endl;
-  return errors;
+  for (int i = 1; i < N; i++) {
+    REQUIRE(keys[i] <= keys[i - 1]);
+  }
 }
