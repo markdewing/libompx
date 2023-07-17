@@ -20,7 +20,7 @@ template <typename T> void init(std::vector<T> &keys) {
 TEMPLATE_TEST_CASE("sort_by_key", "[sort]", int, float, double) {
 
   int N = GENERATE(0, 1, 2, 3, 4, 8, 13);
-  std::cout << "size = " << N << std::endl;
+  //std::cout << "size = " << N << std::endl;
   std::vector<TestType> keys(N);
   TestType *keys_begin = keys.data();
 
