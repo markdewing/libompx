@@ -4,14 +4,14 @@ project(libompx VERSION "0.2" DESCRIPTION "LIBOMPX")
 
 enable_testing()
 
-option(BUILD_CUDA "Enable CUDA backend" OFF)
-option(BUILD_ROCM "Enable ROCm backend" OFF)
-option(BUILD_ONEAPI "Enable OneAPI backend" OFF)
-option(BUILD_HOST "Enable host CPU library" OFF)
+option(LIBOMPX_BUILD_CUDA "Enable CUDA backend" OFF)
+option(LIBOMPX_BUILD_ROCM "Enable ROCm backend" OFF)
+option(LIBOMPX_BUILD_ONEAPI "Enable OneAPI backend" OFF)
+option(LIBOMPX_BUILD_HOST "Enable host CPU library" OFF)
 
-option(USE_OFFLOAD_LTO  "Enable Offload Link Time Optimization (LTO)" OFF)
+option(LIBOMPX_USE_OFFLOAD_LTO  "Enable Offload Link Time Optimization (LTO)" OFF)
 
-option(BUILD_TESTS "Enable tests" ON)
+option(LIBOMPX_BUILD_TESTS "Enable tests" ON)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -21,7 +21,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_subdirectory(lib)
 
-if (BUILD_TESTS)
+if (LIBOMPX_BUILD_TESTS)
   add_subdirectory(tests)
 endif()
 

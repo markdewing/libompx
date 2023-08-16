@@ -42,13 +42,15 @@ The library uses [Catch2](https://github.com/catchorg/Catch2) for unit testing.
 ### CMake Build Options
 
 Choose and enable one of the backends:
-* `BUILD_CUDA` - enable CUDA
-* `BUILD_ROCM` - enable ROCm
-* `BUILD_ONEAPI` - enable OneAPI
+* `LIBOMPX_BUILD_CUDA` - enable CUDA
+* `LIBOMPX_BUILD_ROCM` - enable ROCm
+* `LIBOMPX_BUILD_ONEAPI` - enable OneAPI
 
 A host CPU backend is optional
-* `BUILD_HOST` - enable host CPU backend
+* `LIBOMPX_BUILD_HOST` - enable host CPU backend
 
 Offload link-time-optimization (LTO) can be enabled (for CUDA and ROCm backends)
-* `USE_OFFLOAD_LTO` - use `-foffload-lto` compiler option
+* `LIBOMPX_USE_OFFLOAD_LTO` - use `-foffload-lto` compiler option
 
+Tests (and the use the Catch2 library) can be configured with
+* `LIBOMPX_BUILD_TESTS` - enable unit tests

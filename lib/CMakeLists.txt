@@ -1,17 +1,17 @@
 
 
-if (BUILD_CUDA)
+if (LIBOMPX_BUILD_CUDA)
   add_subdirectory(cuda)
 endif()
 
-if (BUILD_ROCM)
+if (LIBOMPX_BUILD_ROCM)
   add_subdirectory(rocm)
 endif()
 
-if (BUILD_ONEAPI)
+if (LIBOMPX_BUILD_ONEAPI)
   add_subdirectory(oneapi)
 endif()
 
-if (BUILD_HOST)
+if (LIBOMPX_BUILD_HOST)
   add_subdirectory(host)
 endif()

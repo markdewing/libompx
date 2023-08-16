@@ -2,21 +2,21 @@
 
 find_package(Catch2 3 REQUIRED)
 
-if (BUILD_CUDA)
+if (LIBOMPX_BUILD_CUDA)
   set(OFFLOAD_COMPILE_OPTIONS -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -fopenmp-offload-mandatory)
   set(OFFLOAD_COMPILE_OPTIONS ${OFFLOAD_COMPILE_OPTIONS} -fgpu-rdc)
 endif()
 
-if (BUILD_ROCM)
+if (LIBOMPX_BUILD_ROCM)
   set(OFFLOAD_COMPILE_OPTIONS -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -fopenmp-offload-mandatory)
   set(OFFLOAD_COMPILE_OPTIONS ${OFFLOAD_COMPILE_OPTIONS} -fgpu-rdc)
 endif()
 
-if (USE_OFFLOAD_LTO)
+if (LIBOMPX_USE_OFFLOAD_LTO)
   set(OFFLOAD_COMPILE_OPTIONS ${OFFLOAD_COMPILE_OPTIONS} -foffload-lto)
 endif()
 
-if (BUILD_ONEAPI)
+if (LIBOMPX_BUILD_ONEAPI)
   set(OFFLOAD_COMPILE_OPTIONS -fiopenmp -fsycl -fopenmp-targets=spir64)
 endif()
 
@@ -33,11 +33,11 @@ foreach(test IN LISTS tests)
   target_link_options(${test} PRIVATE ${OFFLOAD_COMPILE_OPTIONS})
 
   # Would like to get these forwarded from ompx, but cmake is putting them before libompx
-  if (BUILD_CUDA)
+  if (LIBOMPX_BUILD_CUDA)
     target_link_options(${test} PRIVATE -L${CUDAToolkit_BIN_DIR}/../lib64)
     target_link_libraries(${test} PRIVATE -lcuda -lcudart)
   endif()
-  if (BUILD_ROCM)
+  if (LIBOMPX_BUILD_ROCM)
     target_link_options(${test} PRIVATE -L$ENV{ROCM_PATH}/lib)
     target_link_libraries(${test} PRIVATE -lamdhip64)
   endif()
@@ -45,7 +45,7 @@ foreach(test IN LISTS tests)
   add_test(NAME ${test} COMMAND ${test})
 endforeach()
 
-if (BUILD_HOST)
+if (LIBOMPX_BUILD_HOST)
   set(host_tests test_host_sort test_host_sort_cmp)
 
   foreach(test IN LISTS host_tests)
