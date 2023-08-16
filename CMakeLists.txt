@@ -11,6 +11,8 @@ option(BUILD_HOST "Enable host CPU library" OFF)
 
 option(USE_OFFLOAD_LTO  "Enable Offload Link Time Optimization (LTO)" OFF)
 
+option(BUILD_TESTS "Enable tests" ON)
+
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -18,7 +20,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_subdirectory(lib)
-add_subdirectory(tests)
+
+if (BUILD_TESTS)
+  add_subdirectory(tests)
+endif()
 
 # Installation
 
