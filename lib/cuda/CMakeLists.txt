@@ -17,12 +17,5 @@ find_package(Thrust REQUIRED CONFIG)
 thrust_create_target(Thrust)
 
 add_library(ompx sort_impl.cu sort_impl2.cu sort_by_key_impl.cu inclusive_scan_impl.cu)
-target_include_directories(ompx PUBLIC "${PROJECT_SOURCE_DIR}/include")
 
 target_link_libraries(ompx Thrust)
-
-install(TARGETS ompx
-        EXPORT ompx
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-       )
-

@@ -21,10 +21,3 @@ endif()
 target_compile_options(ompx PRIVATE "${hip_compile_opts}")
 
 target_include_directories(ompx PRIVATE "${ROCTHRUST_INCLUDE_DIR}")
-target_include_directories(ompx PUBLIC "${PROJECT_SOURCE_DIR}/include")
-
-install(TARGETS ompx
-        EXPORT ompx
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-       )
-
