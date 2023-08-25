@@ -28,5 +28,12 @@ endif()
 # Installation
 
 include(GNUInstallDirs)
+install(EXPORT ompx
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libompx
+    NAMESPACE libompx::
+    FILE libompxConfig.cmake
+)
+
+add_library(libompx::ompx ALIAS ompx)
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ompx DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
