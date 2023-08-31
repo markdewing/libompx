@@ -15,7 +15,7 @@ using TYPE = double;
 
 unsigned int seed = 0;
 
-// Initial vector to random values
+// Initialize vector to random values
 void init(std::vector<TYPE> &keys) {
   std::mt19937 rng;
   rng.seed(1);
@@ -43,7 +43,6 @@ double run_n(int N) {
   auto end = std::chrono::steady_clock::now();
 
   std::chrono::duration<double> elapsed = end - start;
-  // std::cout << "N = " << N << " Time = " << elapsed.count() << std::endl;
 
   for (int i = 1; i < NumKeys; i++) {
     if (keys[i] < keys[i - 1])
@@ -52,8 +51,7 @@ double run_n(int N) {
 
   if (errors)
     std::cout << "Test FAIL" << std::endl;
-  // else
-  //   std::cout << "Test PASS" << std::endl;
+
   return elapsed.count();
 }
 
@@ -85,8 +83,7 @@ int main(int argc, char **argv) {
 
     // Length of array to sort
     if (arg == "-n") {
-      std::string val(argv[++i]);
-      N = std::stoi(val);
+      N = std::stoi(argv[++i]);
     }
 
     // Number of loops (number of times to run the sort)
@@ -123,5 +120,6 @@ int main(int argc, char **argv) {
 
   if (do_print_header)
     print_header();
+
   std::cout << bytes << " " << total / nloop << std::endl;
 }
