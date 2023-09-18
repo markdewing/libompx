@@ -36,7 +36,7 @@ double run_n(int N) {
 
   auto start = std::chrono::steady_clock::now();
 
-  std::sort(keys.begin(), keys.end());
+  std::sort(oneapi::dpl::execution::dpcpp_default, keys.begin(), keys.end());
 
   auto end = std::chrono::steady_clock::now();
 
