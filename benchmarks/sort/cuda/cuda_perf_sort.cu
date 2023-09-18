@@ -12,8 +12,8 @@
 #include <stdlib.h>
 #include <string>
 
-using TYPE = int;
-// using TYPE=double;
+//using TYPE = int;
+ using TYPE=double;
 
 unsigned int seed = 0;
 
