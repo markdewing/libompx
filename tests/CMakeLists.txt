@@ -32,11 +32,6 @@ foreach(test IN LISTS tests)
   target_compile_options(${test} PRIVATE ${OFFLOAD_COMPILE_OPTIONS})
   target_link_options(${test} PRIVATE ${OFFLOAD_COMPILE_OPTIONS})
 
-  if (LIBOMPX_BUILD_ROCM)
-    target_link_options(${test} PRIVATE -L$ENV{ROCM_PATH}/lib)
-    target_link_libraries(${test} PRIVATE -lamdhip64)
-  endif()
-
   add_test(NAME ${test} COMMAND ${test})
 endforeach()
 

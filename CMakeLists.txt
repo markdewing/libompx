@@ -45,9 +45,17 @@ export(EXPORT ompx
 
 # https://cmake.org/cmake/help/latest/guide/importing-exporting/index.html#creating-packages
 # Package file
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake.in
+if (LIBOMPX_BUILD_CUDA)
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config_cuda.cmake.in
      "${CMAKE_CURRENT_BINARY_DIR}/libompxConfig.cmake"
      INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libompx)
+endif()
+
+if (LIBOMPX_BUILD_ROCM)
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config_rocm.cmake.in
+     "${CMAKE_CURRENT_BINARY_DIR}/libompxConfig.cmake"
+     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libompx)
+endif()
 
 # Version file
 write_basic_package_version_file(
