@@ -57,6 +57,12 @@ configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config_rocm.cmak
      INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libompx)
 endif()
 
+if (LIBOMPX_BUILD_ONEAPI)
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config_oneapi.cmake.in
+     "${CMAKE_CURRENT_BINARY_DIR}/libompxConfig.cmake"
+     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libompx)
+endif()
+
 # Version file
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/libompxConfigVersion.cmake"
