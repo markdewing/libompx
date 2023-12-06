@@ -23,3 +23,7 @@ thrust_create_target(Thrust)
 add_library(ompx sort_impl.cu sort_impl2.cu sort_by_key_impl.cu inclusive_scan_impl.cu)
 
 target_link_libraries(ompx PUBLIC CUDA::cudart)
+
+# Apparently need to add a directory here in order for the target_include_directory in
+# the parent CMakeLists.txt to work (??)
+target_include_directories(ompx PRIVATE "")
