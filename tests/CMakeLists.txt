@@ -32,16 +32,6 @@ foreach(test IN LISTS tests)
   target_compile_options(${test} PRIVATE ${OFFLOAD_COMPILE_OPTIONS})
   target_link_options(${test} PRIVATE ${OFFLOAD_COMPILE_OPTIONS})
 
-  # Would like to get these forwarded from ompx, but cmake is putting them before libompx
-  if (LIBOMPX_BUILD_CUDA)
-    target_link_options(${test} PRIVATE -L${CUDAToolkit_BIN_DIR}/../lib64)
-    target_link_libraries(${test} PRIVATE -lcuda -lcudart)
-  endif()
-  if (LIBOMPX_BUILD_ROCM)
-    target_link_options(${test} PRIVATE -L$ENV{ROCM_PATH}/lib)
-    target_link_libraries(${test} PRIVATE -lamdhip64)
-  endif()
-
   add_test(NAME ${test} COMMAND ${test})
 endforeach()
 

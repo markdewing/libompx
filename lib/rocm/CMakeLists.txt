@@ -19,5 +19,7 @@ if (USE_OFFLOAD_LTO)
   set(hip_compile_opts "${hip_compile_opts} -foffload-lto")
 endif()
 target_compile_options(ompx PRIVATE "${hip_compile_opts}")
+target_link_libraries(ompx PUBLIC hip::amdhip64)
+
 
 target_include_directories(ompx PRIVATE "${ROCTHRUST_INCLUDE_DIR}")
